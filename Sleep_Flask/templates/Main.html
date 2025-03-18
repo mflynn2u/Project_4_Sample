@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sleep Quality Analysis</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google Fonts for better typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Nighttime Background with Moving Stars */
+        body {
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            background: linear-gradient(120deg, #1e1d4a, #380f67);
+            color: white;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Adding animated stars in the background */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 100%;
+            background: url('https://png.pngtree.com/png-clipart/20200701/ourmid/pngtree-abstract-star-space-transparency-background-png-image_2269444.jpg') repeat;
+            opacity: 0.3;
+            z-index: -1;
+            animation: moveStars 60s linear infinite;
+        }
+
+        /* Stars move horizontally */
+        @keyframes moveStars {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 1000px 0;
+            }
+        }
+
+        /* Navbar Styling - Updated for Night Theme */
+        .navbar {
+            background-color: #1f1147;
+            overflow: hidden;
+            padding: 10px 20px;
+        }
+
+        .navbar a {
+            float: left;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        .navbar a:hover {
+            background-color: #473b6f;
+            color: white;
+        }
+
+        /* Header Styling - Darker theme */
+        header {
+            background-color: #3b007eac;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Section Styling */
+        section {
+            background-color: rgba(76, 18, 117, 0.556);
+            padding: 20px;
+            margin: 20px auto;
+            width: 60%;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+            text-align: center;
+        }
+
+        /* Adjust form grid for better alignment */
+        form {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 15px;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        /* Ensure consistent input field size */
+        input, select {
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            color: #2d2b7b;
+            box-sizing: border-box;
+        }
+
+        /* Make sure the labels align consistently */
+        label {
+            text-align: right;
+            padding-right: 10px;
+            font-weight: bold;
+            color: white;
+            box-sizing: border-box;
+        }
+
+        /* Button Styling - Purple Theme */
+        button {
+            padding: 10px 15px;
+            background-color: #663399;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            grid-column: span 2;
+        }
+
+        button:hover {
+            background-color: #552b91;
+        }
+
+        /* Centered Text */
+        header h1, section h2, p {
+            margin: 0 0 15px;
+            color: white;
+        }
+
+        /* Links */
+        .btn {
+            background-color: #663399;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background-color: #552b91;
+        }
+        .custom-link {
+        color: #52bff1; /* Choose any color you like */
+        text-decoration: underline;
+    }
+
+.custom-link:hover {
+    color: #f800f0; /* Change color on hover, optional */
+}
+
+
+        /* Footer Links */
+        footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* FAQ Section */
+        #faq {
+            background-color: rgba(45, 43, 123, 0.8);
+            padding: 20px;
+            margin: 20px auto;
+            width: 60%;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+        }
+
+        #faq h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        #faq p {
+            text-align: left;
+            margin-bottom: 15px;
+            color: white;
+        }
+        /* Info Section */
+        #info {
+            background-color: rgba(95, 73, 184, 0.8);
+            padding: 20px;
+            margin: 20px auto;
+            width: 60%;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+        }
+
+        #info h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        #info p {
+            text-align: left;
+            margin-bottom: 15px;
+            color: white;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="#home">Home</a>
+        <a href="#input">Input Data</a>
+        <a href="#faq">FAQ</a>
+        <a href="#info">Important Information</a>
+    </div>
+
+    <header id="home">
+        <h1>Welcome to the Sleep Quality Analysis Tool</h1>
+        <p>Analyze whether you have a sleep disorder based on quality of sleep, stress and health!</p>
+        <a href="#input" class="btn">Get Started</a>
+    </header>
+
+    <section id="input">
+        <h2>Input Your Data for Sleep Quality Analysis</h2>
+        <h4>Let's get to know you!</h4>
+        <form id="user-data-form" action="/predict#results" method="post">
+            <label for="Age">How old are you?</label>
+            <input type="number" id="Age" name="Age" required>
+            
+            <label for="Gender">What's your gender?</label>
+            <select id="Gender" name="Gender" required>
+                <option value="" disabled selected>Select</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+
+            <label for="Occupation">What's your occupation?</label>
+            <select id="Occupation" name="Occupation">
+                <option value="" disabled selected>Select the closest one to you</option>
+                <option value="Accountant">Accountant</option>
+                <option value="Doctor">Doctor</option>
+                <option value="Engineer">Engineer</option>
+                <option value="Lawyer">Lawyer</option>
+                <option value="Manager">Manager</option>
+                <option value="Nurse">Nurse</option>
+                <option value="Sales Representative">Sales Representative</option>
+                <option value="Salesperson">Salesperson</option>
+                <option value="Scientist">Scientist</option>
+                <option value="Software Engineer">Software Engineer</option>
+                <option value="Teacher">Teacher</option>
+            </select>
+
+            <label for="Stress_Level">What's your stress level?</label>
+            <input type="number" id="Stress_Level" name="Stress_Level" min="1" max="10" placeholder="1 (none) to 10 (extremely stressed)" required>
+
+            <label for="Physical_Activity_Level">What's your Physical Activity level?</label>
+            <input type="number" id="Physical_Activity_Level" name="Physical_Activity_Level" min="1" max="100" placeholder="1 (sedentary) to 100 (athletic)" required>
+
+            <label for="Daily_Steps">What is your Daily Steps?</label>
+            <input type="number" id="Daily_Steps" name="Daily_Steps" required>
+
+
+            <label for="Sleep_Duration">How many hours do you sleep at night?</label>
+            <input type="number" step="0.1" id="Sleep_Duration" name="Sleep_Duration" min="1" max="24" placeholder="Must be in decimal ex: 4.5"required>
+
+            <label for="Quality_of_Sleep">Rate your Quality of Sleep</label>
+            <input type="number" step="0.1" id="Quality_of_Sleep" name="Quality_of_Sleep" min="1" max="10" placeholder="1 (terrible) to 10 (best sleep of your life)"required>
+
+
+            <label for="BMI_Category">What would you consider yourself?</label>
+            <select id="BMI_Category" name="BMI_Category">
+                <option value="" disabled selected>Select</option>
+                <option value="Normal">Normal weight</option>
+                <option value="Overweight">Overweight</option>
+                <option value="Obese">Obese</option>
+            </select>
+
+            <h4 style="text-align: center;">Blood Pressure</h4>
+            <br>
+            <label for="systolic">Systolic</label>
+            <input type="text" id="systolic" name="systolic" placeholder="top number" min="40" max="195"required>
+            <label for="diastolic">Diastolic</label>
+            <input type="text" id="diastolic" name="diastolic" placeholder="bottom number" min="55" max="100"required>
+            
+            <label for="Heart_Rate">Heart Rate</label>
+            <input type="number" id="Heart_Rate" name="Heart_Rate" min="30" max="180" required>
+
+            <button type="Predict">Predict</button>
+            
+        </form>
+    </section>
+
+    <section id="results">
+        <h2>Your Sleep Quality Results</h2>
+        <div id="results-container">
+            
+            {% if prediction %}
+            <div style="text-align: center;">
+                <p style="font-size: 24px; margin-top: 10px;">Your predicted sleep disorder is:<br> 
+                    <br><strong style="font-size: 40px;">{{ prediction }}</strong>
+                </p>
+                
+                <p style="font-size: 20px; margin-top: 20px;">Suggestion: {{ suggestion }}</p>
+            </div>
+            <br>
+            <p>Thank you for submitting your data! <br> Try again?</p>
+    
+            {% else %}
+            <div style="text-align: center;">
+                <p style="font-size: 18px; margin-top: 10px;">Your sleep quality analysis results will appear here.</p>
+            </div>
+            {% endif %}
+            
+        </div>
+        <a href="#input" class="btn">Input New Data</a>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq">
+        <h2>Frequently Asked Questions</h2>
+        <p><strong>Q: What data do I need to provide for the sleep analysis?</strong></p>
+        <p>A: You will need to input your age, gender, occupation, sleep duration, stress level, BMI, and blood pressure for the analysis.</p>
+        
+        <p><strong>Q: What if I don't know my Blood Pressure?</strong></p>
+        <p> You can always check your blood pressure with a handy sphygmomanometer. However, if you don't have that,
+            you can follow <a href="https://www.medindia.net/patients/calculators/bp-chart-result.asp" class="custom-link" target="_blank">this link</a> to estimate what range fits best for you. </p>
+        
+     </section>
+
+     <!-- Important Info Section -->
+    <section id="info">
+        <h2>Important Information</h2>
+        <p>Please note that this is a model prediction based on collective research. It should not replace medical advice. 
+            If you are concerned about your result,
+            please consider consulting with your Primary Care Provider. The result you get doesn't necesarily mean you have said sleep disorder, but it is a prediction based on factors you've inputted. 
+        </p>
+
+     </section>
+</body>
+</html>
